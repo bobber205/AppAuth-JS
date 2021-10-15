@@ -80,7 +80,7 @@ export class AuthorizationRequest {
     if (!this.usePkce) {
       return Promise.resolve();
     } else {
-      const codeVerifier = this.crypto.generateRandom(128);
+      const codeVerifier = this.extras!.code_verifier_value! || this.crypto.generateRandom(128);
       const challenge: Promise<string|undefined> =
           this.crypto.deriveChallenge(codeVerifier).catch(error => {
             log('Unable to generate PKCE challenge. Not using PKCE', error);
