@@ -96,7 +96,7 @@ export class NodeBasedHandler extends AuthorizationRequestHandler {
         reject(`Unable to create HTTP server at port ${this.httpServerPort}`);
       });
       emitter.once(ServerEventsEmitter.ON_AUTHORIZATION_RESPONSE, (result: any) => {
-        server.close();
+        // server.close();
         // resolve pending promise
         resolve(result as AuthorizationRequestResponse);
         // complete authorization flow
@@ -107,8 +107,8 @@ export class NodeBasedHandler extends AuthorizationRequestHandler {
     let server: Http.Server;
     request.setupCodeVerifier()
         .then(() => {
-          server = Http.createServer(requestHandler);
-          server.listen(this.httpServerPort);
+          // server = Http.createServer(requestHandler);
+          // server.listen(this.httpServerPort);
           const url = this.buildRequestUrl(configuration, request);
           log('Making a request to ', request, url);
           opener(url);
