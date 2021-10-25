@@ -26,7 +26,7 @@ import {NodeCrypto} from './crypto_utils';
 
 
 // TypeScript typings for `opener` are not correct and do not export it as module
-import opener = require('opener');
+// import opener = require('opener');
 
 class ServerEventsEmitter extends EventEmitter {
   static ON_UNABLE_TO_START = 'unable_to_start';
@@ -105,13 +105,14 @@ export class NodeBasedHandler extends AuthorizationRequestHandler {
     });
 
     let server: Http.Server;
-    request.setupCodeVerifier()
+    return request.setupCodeVerifier()
         .then(() => {
           // server = Http.createServer(requestHandler);
           // server.listen(this.httpServerPort);
           const url = this.buildRequestUrl(configuration, request);
           log('Making a request to ', request, url);
-          opener(url);
+          return url
+          // opener(url);
         })
         .catch((error) => {
           log('Something bad happened ', error);
